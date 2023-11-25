@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dbtj6t5f2hplo"]
+[gd_scene load_steps=5 format=3 uid="uid://dbtj6t5f2hplo"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_5yecs"]
 [ext_resource type="Texture2D" uid="uid://bwpt4087gmdfu" path="res://graphics/projectiles/player.png" id="2_y77wv"]
@@ -6,13 +6,26 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_3rsjb"]
 radius = 62.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uj1qj"]
+size = Vector2(110, 200)
+
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_5yecs")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3rsjb")
 
-[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0.0901961, 0.309804, 0.278431, 1)
 rotation = -1.5708
 texture = ExtResource("2_y77wv")
+
+[node name="CatchArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CatchCollisionShape" type="CollisionShape2D" parent="CatchArea"]
+visibility_layer = 3
+position = Vector2(80, 0)
+shape = SubResource("RectangleShape2D_uj1qj")
+debug_color = Color(0.376471, 0.580392, 0.560784, 0.419608)
