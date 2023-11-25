@@ -9,4 +9,4 @@ func _process(_delta):
 	move_and_slide()
 
 	# Point towards mouse
-	
+	look_at(get_global_mouse_position())
