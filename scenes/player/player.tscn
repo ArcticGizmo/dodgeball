@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dbtj6t5f2hplo"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_5yecs"]
-[ext_resource type="Texture2D" uid="uid://cqo4ihouh7doc" path="res://icon.svg" id="2_w43b2"]
+[ext_resource type="Texture2D" uid="uid://bwpt4087gmdfu" path="res://graphics/projectiles/player.png" id="2_y77wv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3rsjb"]
 radius = 62.0
@@ -9,9 +9,10 @@ radius = 62.0
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_5yecs")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = 1.5708
-texture = ExtResource("2_w43b2")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3rsjb")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+self_modulate = Color(0.0901961, 0.309804, 0.278431, 1)
+rotation = -1.5708
+texture = ExtResource("2_y77wv")

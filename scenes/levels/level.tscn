@@ -1,14 +1,45 @@
-[gd_scene load_steps=3 format=3 uid="uid://b17ckcldker6d"]
+[gd_scene load_steps=5 format=3 uid="uid://b17ckcldker6d"]
 
 [ext_resource type="Texture2D" uid="uid://cqo4ihouh7doc" path="res://icon.svg" id="1_gnonf"]
 [ext_resource type="PackedScene" uid="uid://dbtj6t5f2hplo" path="res://scenes/player/player.tscn" id="1_gu7g5"]
+[ext_resource type="PackedScene" uid="uid://jp2ugf28lli6" path="res://scenes/projectiles/ball.tscn" id="4_nq2sh"]
+[ext_resource type="PackedScene" uid="uid://dp520mjupndw2" path="res://scenes/objects/wall.tscn" id="4_y3edk"]
 
 [node name="Level" type="Node2D"]
-
-[node name="player" parent="." instance=ExtResource("1_gu7g5")]
-position = Vector2(592, 317)
 
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(190.5, 303)
 scale = Vector2(0.445313, 0.46875)
 texture = ExtResource("1_gnonf")
+
+[node name="Players" type="Node" parent="."]
+
+[node name="player" parent="Players" instance=ExtResource("1_gu7g5")]
+position = Vector2(592, 317)
+
+[node name="Projectiles" type="Node" parent="."]
+
+[node name="ball" parent="Projectiles" instance=ExtResource("4_nq2sh")]
+position = Vector2(391, 150)
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="wall" parent="Walls" instance=ExtResource("4_y3edk")]
+position = Vector2(1159, 301)
+rotation = -3.14159
+scale = Vector2(0.5, -10)
+
+[node name="wall2" parent="Walls" instance=ExtResource("4_y3edk")]
+position = Vector2(3, 251)
+rotation = -3.14159
+scale = Vector2(0.5, -10)
+
+[node name="wall3" parent="Walls" instance=ExtResource("4_y3edk")]
+position = Vector2(570, -2)
+rotation = -3.14159
+scale = Vector2(10, 0.5)
+
+[node name="wall4" parent="Walls" instance=ExtResource("4_y3edk")]
+position = Vector2(566, 639)
+rotation = -3.14159
+scale = Vector2(10, 0.5)
