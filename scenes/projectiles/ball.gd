@@ -5,5 +5,5 @@ extends RigidBody2D
 func _process(_delta):
 	
 	# limit max speed
-	if linear_velocity.length() > max_speed:
-		linear_velocity = linear_velocity.normalized() * max_speed
+#	if linear_velocity.length() > max_speed:
+#		linear_velocity = linear_velocity.normalized() * max_speed

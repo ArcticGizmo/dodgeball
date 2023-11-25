@@ -24,5 +24,9 @@ func handle_catchable_projectile():
 		return
 		
 	var projectile = bodies[0] as RigidBody2D;
-	projectile.linear_velocity *= -1
+
+	# send in direction player is pointing in, with more speed
+	projectile.linear_velocity = get_player_direction_as_vector() * projectile.linear_velocity.length() * 1.25
 	
+func get_player_direction_as_vector():
+	return (get_global_mouse_position() - position).normalized()

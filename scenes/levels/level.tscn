@@ -21,6 +21,7 @@ position = Vector2(592, 317)
 
 [node name="ball" parent="Projectiles" instance=ExtResource("4_nq2sh")]
 position = Vector2(391, 150)
+max_speed = null
 
 [node name="Walls" type="Node" parent="."]
 
