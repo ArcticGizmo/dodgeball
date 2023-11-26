@@ -1,21 +1,21 @@
 extends CharacterBody2D
 
 @export var max_speed: int = 1000;
-@export var return_bonus_speed_factor: float = 1.5
+@export var return_bonus_speed_factor: float = 3
 @export var throw_speed: int = 1500
 
 signal player_death
 signal create_ball(position: Vector2, velocity: Vector2)
 
 
-var ball_held: bool = false
+var ball_held: bool = true
 var ball_caught_speed: float
 
 func _ready():
-	$HeldItemSprite.visible = false
+	$HeldItemSprite.visible = ball_held
 	look_at(get_global_mouse_position())
 
-func _process(_delta):
+func _physics_process(_delta):
 	# Movement
 	velocity = Input.get_vector("left", "right", "up", "down") * max_speed
 	move_and_slide()
@@ -39,9 +39,6 @@ func handle_catchable_projectile():
 	
 	if len(bodies) == 0:
 		return
-		
-	print("caught")
-		
 		
 	var projectile = bodies[0] as RigidBody2D;
 	ball_caught_speed = projectile.linear_velocity.length()
@@ -75,14 +72,11 @@ func throw_ball():
 
 	
 func maybe_pick_up_item():
-	print($PickupArea.get_overlapping_areas())
 	var triggers = $PickupArea.get_overlapping_areas().filter(func(x): return x.is_in_group("pickup-zones"))
 	
 	if len(triggers) == 0:
 		return
 		
-	print("pickup")
-	
 	ball_held = true
 	$HeldItemSprite.visible = true
 
@@ -91,7 +85,8 @@ func get_player_direction_as_vector() -> Vector2:
 
 
 func _on_body_hit_area_body_entered(body):
-	body.queue_free()
-	self.queue_free()
-	player_death.emit()		
+	pass
+#	body.queue_free()
+#	self.queue_free()
+#	player_death.emit()
 	

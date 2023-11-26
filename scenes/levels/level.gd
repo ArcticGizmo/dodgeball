@@ -24,6 +24,7 @@ func _on_player_create_ball(position, velocity):
 
 	ball.global_position = position
 	ball.linear_velocity = velocity
+#	ball.apply_central_impulse(impulse)
 	
 	$Projectiles.add_child(ball)
 	

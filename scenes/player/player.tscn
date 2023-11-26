@@ -52,7 +52,7 @@ scale = Vector2(0.445313, 0.445313)
 texture = ExtResource("3_rpav3")
 
 [node name="ThrowFromMarker" type="Marker2D" parent="."]
-position = Vector2(95, 57)
+position = Vector2(102, 3)
 
 [node name="ReturnBonusSpeedTimer" type="Timer" parent="."]
 one_shot = true
