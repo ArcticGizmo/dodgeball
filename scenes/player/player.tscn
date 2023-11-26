@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dbtj6t5f2hplo"]
+[gd_scene load_steps=7 format=3 uid="uid://dbtj6t5f2hplo"]
 
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_5yecs"]
 [ext_resource type="Texture2D" uid="uid://bwpt4087gmdfu" path="res://graphics/projectiles/player.png" id="2_y77wv"]
@@ -7,9 +7,6 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_3rsjb"]
 radius = 61.0082
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uj1qj"]
-size = Vector2(159, 200)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_7504i"]
 radius = 115.0
 
@@ -17,7 +14,9 @@ radius = 115.0
 radius = 66.0076
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 5
 script = ExtResource("1_5yecs")
+throw_speed = 2500
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3rsjb")
@@ -25,14 +24,9 @@ shape = SubResource("CircleShape2D_3rsjb")
 [node name="CatchArea" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 2
-metadata/_edit_lock_ = true
 
-[node name="CatchCollisionShape" type="CollisionShape2D" parent="CatchArea"]
-visibility_layer = 3
-position = Vector2(104.5, 0)
-shape = SubResource("RectangleShape2D_uj1qj")
-debug_color = Color(0.376471, 0.580392, 0.560784, 0.419608)
-metadata/_edit_lock_ = true
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CatchArea"]
+polygon = PackedVector2Array(158, -116, 3, -81, -54, -42, -58, 27, 7, 77, 158, 115)
 
 [node name="PickupArea" type="Area2D" parent="."]
 collision_mask = 8

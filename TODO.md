@@ -1,16 +1,8 @@
 # Ball Handling
 - prevent you from being able to catch your own ball immediately after throwing it
-- if the ball hits the player
-    - ball is destroyed and replaced
-    - player is destroyed
-    - player spawned back after 2 seconds
 
 - make a ball dangerous only if it is above a certain speed
 - add ability to pick up a ball that is moving slowly
-
-# Ball Physics
-- adjust bounce and friction to make ti feel more ball like
-
 
 # catchable projectiles
 - create base class for catchable projectiles

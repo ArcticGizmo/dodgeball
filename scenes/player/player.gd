@@ -1,15 +1,16 @@
 extends CharacterBody2D
 
 @export var max_speed: int = 1000;
-@export var return_bonus_speed_factor: float = 3
+@export var return_bonus_speed_factor: float = 1.05
 @export var throw_speed: int = 1500
 
 signal player_death
-signal create_ball(position: Vector2, velocity: Vector2)
+signal create_ball(position: Vector2, velocity: Vector2, times_thrown: int)
 
 
 var ball_held: bool = true
 var ball_caught_speed: float
+var ball_throw_factor: int = 1
 
 func _ready():
 	$HeldItemSprite.visible = ball_held
@@ -40,9 +41,10 @@ func handle_catchable_projectile():
 	if len(bodies) == 0:
 		return
 		
-	var projectile = bodies[0] as RigidBody2D;
-	ball_caught_speed = projectile.linear_velocity.length()
-	projectile.queue_free()
+	var ball = bodies[0] as Ball;
+	ball_caught_speed = ball.linear_velocity.length()
+	ball_throw_factor = ball.throw_factor + 1
+	ball.queue_free()
 	ball_held = true
 	$HeldItemSprite.visible = true
 	
@@ -53,20 +55,19 @@ func handle_catchable_projectile():
 	
 	
 func throw_ball():
-	var pos = $ThrowFromMarker.global_position
-
-	var vel = get_player_direction_as_vector()
-	if ($ReturnBonusSpeedTimer.time_left > 0):
-		var speed = ball_caught_speed * return_bonus_speed_factor
-		if (speed < throw_speed):
-			speed = throw_speed
-		vel *= throw_speed
-	else:
-		vel *= throw_speed
+	# if re-throwing, throw even harder
+	var ball_speed = max(ball_caught_speed, throw_speed)
 	
-	create_ball.emit(pos, vel)
+	if ($ReturnBonusSpeedTimer.time_left > 0):
+		ball_speed *= ball_throw_factor * return_bonus_speed_factor
+		
+	var vel = get_player_direction_as_vector() * ball_speed
+	
+	create_ball.emit($ThrowFromMarker.global_position, vel, ball_throw_factor)
+	
 	$ReturnBonusSpeedTimer.stop()
 	ball_held = false
+	ball_throw_factor = 1
 	$HeldItemSprite.visible = false
 	
 

@@ -24,35 +24,34 @@ texture = ExtResource("1_gnonf")
 
 [node name="player" parent="Players" instance=ExtResource("1_gu7g5")]
 position = Vector2(-427, -207)
-throw_speed = 2500
 
 [node name="Projectiles" type="Node" parent="."]
 
 [node name="ball" parent="Projectiles" instance=ExtResource("4_nq2sh")]
-position = Vector2(-628, -374)
-linear_velocity = Vector2(1000, 0)
+position = Vector2(912, -244)
+linear_velocity = Vector2(-3000, 0)
 
 [node name="Walls" type="Node" parent="."]
 
 [node name="wall" parent="Walls" instance=ExtResource("4_y3edk")]
-position = Vector2(1140, 22)
+position = Vector2(1696, 21)
 rotation = -3.14159
-scale = Vector2(0.5, -10)
+scale = Vector2(10, -10)
 
 [node name="wall2" parent="Walls" instance=ExtResource("4_y3edk")]
-position = Vector2(-1121, 7)
+position = Vector2(-1706, -3)
 rotation = -3.14159
-scale = Vector2(0.5, -10)
+scale = Vector2(10, -10)
 
 [node name="wall3" parent="Walls" instance=ExtResource("4_y3edk")]
-position = Vector2(-9, -625)
+position = Vector2(-79, -1145)
 rotation = -3.14159
-scale = Vector2(20, 0.5)
+scale = Vector2(25, 10)
 
 [node name="wall4" parent="Walls" instance=ExtResource("4_y3edk")]
-position = Vector2(-9, 636)
+position = Vector2(-22, 1171)
 rotation = -3.14159
-scale = Vector2(20, 0.5)
+scale = Vector2(25, 10)
 
 [node name="BallSpawner" parent="." instance=ExtResource("5_snfvr")]
 position = Vector2(-820, -51)

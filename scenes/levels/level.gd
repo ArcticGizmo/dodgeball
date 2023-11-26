@@ -18,12 +18,14 @@ func _on_player_respawn_timer_timeout():
 	
 
 
-func _on_player_create_ball(position, velocity):
+func _on_player_create_ball(position, velocity, times_thrown = 0):
 	print("create ball")
 	var ball = ball_template.instantiate()
 
 	ball.global_position = position
 	ball.linear_velocity = velocity
+	ball.throw_factor = times_thrown
+	print(ball.throw_factor)
 #	ball.apply_central_impulse(impulse)
 	
 	$Projectiles.add_child(ball)
