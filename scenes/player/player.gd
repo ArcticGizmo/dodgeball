@@ -1,20 +1,23 @@
 extends CharacterBody2D
 
-@export var max_speed: int = 500;
+@export var max_speed: int = 1000;
 @export var return_bonus_speed_factor: float = 1.5
-@export var throw_speed: int = 500
-var speed: int = max_speed;
+@export var throw_speed: int = 1500
 
-const ball_template: PackedScene = preload("res://scenes/projectiles/ball.tscn")
+signal player_death
+signal create_ball(position: Vector2, velocity: Vector2)
+
+
 var ball_held: bool = false
 var ball_caught_speed: float
 
 func _ready():
 	$HeldItemSprite.visible = false
+	look_at(get_global_mouse_position())
 
 func _process(_delta):
 	# Movement
-	velocity = Input.get_vector("left", "right", "up", "down") * speed
+	velocity = Input.get_vector("left", "right", "up", "down") * max_speed
 	move_and_slide()
 
 	# Point towards mouse
@@ -48,26 +51,31 @@ func handle_catchable_projectile():
 	
 	# start bonus speed timer
 	$ReturnBonusSpeedTimer.start()
+	$HeldItemSprite.self_modulate = Color(255, 0, 0, 1)
+	create_tween().tween_property($HeldItemSprite, "self_modulate:a", 0.5, 1)
 	
 	
 func throw_ball():
-	$HeldItemSprite.visible = false	
-	
-	var ball = ball_template.instantiate()
-	%Projectiles.add_child(ball)
-	
-	ball.global_position = $ThrowFromMarker.global_position
-		
-	ball.linear_velocity = get_player_direction_as_vector()
+	var pos = $ThrowFromMarker.global_position
+
+	var vel = get_player_direction_as_vector()
 	if ($ReturnBonusSpeedTimer.time_left > 0):
-		ball.linear_velocity *= ball_caught_speed * return_bonus_speed_factor
+		var speed = ball_caught_speed * return_bonus_speed_factor
+		if (speed < throw_speed):
+			speed = throw_speed
+		vel *= throw_speed
 	else:
-		ball.linear_velocity *= throw_speed
+		vel *= throw_speed
 	
-	ball_held = false
+	create_ball.emit(pos, vel)
 	$ReturnBonusSpeedTimer.stop()
+	ball_held = false
+	$HeldItemSprite.visible = false
+	
+
 	
 func maybe_pick_up_item():
+	print($PickupArea.get_overlapping_areas())
 	var triggers = $PickupArea.get_overlapping_areas().filter(func(x): return x.is_in_group("pickup-zones"))
 	
 	if len(triggers) == 0:
@@ -76,9 +84,14 @@ func maybe_pick_up_item():
 	print("pickup")
 	
 	ball_held = true
-	$HeldItemSprite.visible = true	
-	
-	
+	$HeldItemSprite.visible = true
 
-func get_player_direction_as_vector():
+func get_player_direction_as_vector() -> Vector2:
 	return (get_global_mouse_position() - position).normalized()
+
+
+func _on_body_hit_area_body_entered(body):
+	body.queue_free()
+	self.queue_free()
+	player_death.emit()		
+	

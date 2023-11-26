@@ -12,7 +12,7 @@ size = Vector2(132, 128)
 self_modulate = Color(0.631373, 0.278431, 0, 1)
 texture = ExtResource("1_m46s5")
 
-[node name="Area2D" type="Area2D" parent="." groups=["pickup-groups"]]
+[node name="Area2D" type="Area2D" parent="." groups=["pickup-zones"]]
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

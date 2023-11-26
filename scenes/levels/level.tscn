@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://b17ckcldker6d"]
+[gd_scene load_steps=7 format=3 uid="uid://b17ckcldker6d"]
 
+[ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_a6nrm"]
 [ext_resource type="Texture2D" uid="uid://cqo4ihouh7doc" path="res://icon.svg" id="1_gnonf"]
 [ext_resource type="PackedScene" uid="uid://dbtj6t5f2hplo" path="res://scenes/player/player.tscn" id="1_gu7g5"]
 [ext_resource type="PackedScene" uid="uid://jp2ugf28lli6" path="res://scenes/projectiles/ball.tscn" id="4_nq2sh"]
@@ -7,44 +8,60 @@
 [ext_resource type="PackedScene" uid="uid://byuo0i4ns66sp" path="res://scenes/objects/ball_spawner.tscn" id="5_snfvr"]
 
 [node name="Level" type="Node2D"]
+script = ExtResource("1_a6nrm")
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+metadata/_edit_lock_ = true
 
 [node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(190.5, 303)
+position = Vector2(-828.5, -221)
 scale = Vector2(0.445313, 0.46875)
 texture = ExtResource("1_gnonf")
 
 [node name="Players" type="Node" parent="."]
 
 [node name="player" parent="Players" instance=ExtResource("1_gu7g5")]
-position = Vector2(592, 317)
+position = Vector2(-427, -207)
 
 [node name="Projectiles" type="Node" parent="."]
-unique_name_in_owner = true
 
 [node name="ball" parent="Projectiles" instance=ExtResource("4_nq2sh")]
-position = Vector2(391, 150)
+position = Vector2(-628, -374)
+linear_velocity = Vector2(1000, 0)
 
 [node name="Walls" type="Node" parent="."]
 
 [node name="wall" parent="Walls" instance=ExtResource("4_y3edk")]
-position = Vector2(1159, 301)
+position = Vector2(1140, 22)
 rotation = -3.14159
 scale = Vector2(0.5, -10)
 
 [node name="wall2" parent="Walls" instance=ExtResource("4_y3edk")]
-position = Vector2(3, 251)
+position = Vector2(-1121, 7)
 rotation = -3.14159
 scale = Vector2(0.5, -10)
 
 [node name="wall3" parent="Walls" instance=ExtResource("4_y3edk")]
-position = Vector2(570, -2)
+position = Vector2(-9, -625)
 rotation = -3.14159
-scale = Vector2(10, 0.5)
+scale = Vector2(20, 0.5)
 
 [node name="wall4" parent="Walls" instance=ExtResource("4_y3edk")]
-position = Vector2(566, 639)
+position = Vector2(-9, 636)
 rotation = -3.14159
-scale = Vector2(10, 0.5)
+scale = Vector2(20, 0.5)
 
 [node name="BallSpawner" parent="." instance=ExtResource("5_snfvr")]
-position = Vector2(199, 473)
+position = Vector2(-820, -51)
+
+[node name="PlayerRespawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="PlayerRespawnMarker" type="Marker2D" parent="."]
+position = Vector2(-301, 116)
+
+[connection signal="create_ball" from="Players/player" to="." method="_on_player_create_ball"]
+[connection signal="player_death" from="Players/player" to="." method="_on_player_player_death"]
+[connection signal="timeout" from="PlayerRespawnTimer" to="." method="_on_player_respawn_timer_timeout"]
