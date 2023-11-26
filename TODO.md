@@ -1,7 +1,4 @@
 # Ball Handling
-- add ability to pick up ball (as item for now)
-- add ability to catch ball (secondary action - rather than reflect)
-- add ability to return the ball (primary action)
 - prevent you from being able to catch your own ball immediately after throwing it
 - if the ball hits the player
     - ball is destroyed and replaced

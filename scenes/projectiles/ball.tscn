@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=3 uid="uid://jp2ugf28lli6"]
+[gd_scene load_steps=4 format=3 uid="uid://jp2ugf28lli6"]
 
-[ext_resource type="Script" path="res://scenes/projectiles/ball.gd" id="1_kri0c"]
 [ext_resource type="Texture2D" uid="uid://ghh02tewjbgp" path="res://graphics/projectiles/ball.png" id="2_0pmoi"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1wma4"]
@@ -16,7 +15,6 @@ collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_1wma4")
 gravity_scale = 0.0
 linear_velocity = Vector2(500, 0)
-script = ExtResource("1_kri0c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_1js1r")
