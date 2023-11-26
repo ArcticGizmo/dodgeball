@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b17ckcldker6d"]
+[gd_scene load_steps=6 format=3 uid="uid://b17ckcldker6d"]
 
 [ext_resource type="Texture2D" uid="uid://cqo4ihouh7doc" path="res://icon.svg" id="1_gnonf"]
 [ext_resource type="PackedScene" uid="uid://dbtj6t5f2hplo" path="res://scenes/player/player.tscn" id="1_gu7g5"]
 [ext_resource type="PackedScene" uid="uid://jp2ugf28lli6" path="res://scenes/projectiles/ball.tscn" id="4_nq2sh"]
 [ext_resource type="PackedScene" uid="uid://dp520mjupndw2" path="res://scenes/objects/wall.tscn" id="4_y3edk"]
+[ext_resource type="PackedScene" uid="uid://byuo0i4ns66sp" path="res://scenes/objects/ball_spawner.tscn" id="5_snfvr"]
 
 [node name="Level" type="Node2D"]
 
@@ -18,6 +19,7 @@ texture = ExtResource("1_gnonf")
 position = Vector2(592, 317)
 
 [node name="Projectiles" type="Node" parent="."]
+unique_name_in_owner = true
 
 [node name="ball" parent="Projectiles" instance=ExtResource("4_nq2sh")]
 position = Vector2(391, 150)
@@ -43,3 +45,6 @@ scale = Vector2(10, 0.5)
 position = Vector2(566, 639)
 rotation = -3.14159
 scale = Vector2(10, 0.5)
+
+[node name="BallSpawner" parent="." instance=ExtResource("5_snfvr")]
+position = Vector2(199, 473)

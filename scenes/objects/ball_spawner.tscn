@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://byuo0i4ns66sp"]
+
+[ext_resource type="Texture2D" uid="uid://u01kobc7tdh2" path="res://graphics/objects/wall.png" id="1_m46s5"]
+[ext_resource type="Texture2D" uid="uid://ghh02tewjbgp" path="res://graphics/projectiles/ball.png" id="2_lbc1o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7t34t"]
+size = Vector2(132, 128)
+
+[node name="BallSpawner" type="Node2D"]
+
+[node name="BasePlateSprite" type="Sprite2D" parent="."]
+self_modulate = Color(0.631373, 0.278431, 0, 1)
+texture = ExtResource("1_m46s5")
+
+[node name="Area2D" type="Area2D" parent="." groups=["pickup-groups"]]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_7t34t")
+
+[node name="BallSprite" type="Sprite2D" parent="."]
+self_modulate = Color(0.756863, 0.129412, 0.588235, 1)
+scale = Vector2(0.546875, 0.546875)
+texture = ExtResource("2_lbc1o")
