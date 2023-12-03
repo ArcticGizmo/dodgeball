@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var max_speed: int = 1000;
-@export var return_bonus_speed_factor: float = 1.05
+@export var return_bonus_speed_factor: float = 1.01
 @export var throw_speed: int = 1500
 
 signal player_death

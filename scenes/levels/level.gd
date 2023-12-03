@@ -18,8 +18,15 @@ func _on_player_respawn_timer_timeout():
 	
 
 
-func _on_player_create_ball(position, velocity, times_thrown = 0):
-	print("create ball")
+func _on_player_create_ball(position, velocity, times_thrown):
+	print("player create ball")
+	_on_create_ball(position, velocity, times_thrown)
+
+func _on_rebounder_create_ball(position, velocity, times_thrown):
+	print("rebounder create ball")
+	_on_create_ball(position, velocity, times_thrown)
+
+func _on_create_ball(position, velocity, times_thrown = 0):
 	var ball = ball_template.instantiate()
 
 	ball.global_position = position
@@ -29,4 +36,3 @@ func _on_player_create_ball(position, velocity, times_thrown = 0):
 #	ball.apply_central_impulse(impulse)
 	
 	$Projectiles.add_child(ball)
-	

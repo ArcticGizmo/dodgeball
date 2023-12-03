@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b17ckcldker6d"]
+[gd_scene load_steps=8 format=3 uid="uid://b17ckcldker6d"]
 
 [ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_a6nrm"]
 [ext_resource type="Texture2D" uid="uid://cqo4ihouh7doc" path="res://icon.svg" id="1_gnonf"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://jp2ugf28lli6" path="res://scenes/projectiles/ball.tscn" id="4_nq2sh"]
 [ext_resource type="PackedScene" uid="uid://dp520mjupndw2" path="res://scenes/objects/wall.tscn" id="4_y3edk"]
 [ext_resource type="PackedScene" uid="uid://byuo0i4ns66sp" path="res://scenes/objects/ball_spawner.tscn" id="5_snfvr"]
+[ext_resource type="PackedScene" uid="uid://dcfae62pc21bu" path="res://scenes/objects/rebounder.tscn" id="7_ek7ia"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_a6nrm")
@@ -25,6 +26,8 @@ texture = ExtResource("1_gnonf")
 [node name="player" parent="Players" instance=ExtResource("1_gu7g5")]
 position = Vector2(-427, -207)
 scale = Vector2(0.75, 0.75)
+
+[node name="Objects" type="Node" parent="."]
 
 [node name="Projectiles" type="Node" parent="."]
 
@@ -63,6 +66,11 @@ one_shot = true
 [node name="PlayerRespawnMarker" type="Marker2D" parent="."]
 position = Vector2(-301, 116)
 
+[node name="Rebounder" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_ek7ia")]
+position = Vector2(1797, -592)
+player = NodePath("../Players/player")
+
 [connection signal="create_ball" from="Players/player" to="." method="_on_player_create_ball"]
 [connection signal="player_death" from="Players/player" to="." method="_on_player_player_death"]
 [connection signal="timeout" from="PlayerRespawnTimer" to="." method="_on_player_respawn_timer_timeout"]
+[connection signal="create_ball" from="Rebounder" to="." method="_on_rebounder_create_ball"]
